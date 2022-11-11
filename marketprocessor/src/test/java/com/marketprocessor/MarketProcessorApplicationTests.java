@@ -1,13 +1,13 @@
-package com.marketprocessor.marketprocessor;
+package com.marketprocessor;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MarketprocessorApplicationTests {
+class MarketProcessorApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }
