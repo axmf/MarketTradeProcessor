@@ -39,3 +39,4 @@ There are three components:
 This section contains tools/processes that could be set up in a real environment:
 
 - [ ] Automated pipeline to deploy infra
+- [ ] Observability
