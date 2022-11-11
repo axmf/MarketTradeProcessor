@@ -27,8 +27,13 @@ There are three components:
 }
 ```
 
-In order to provide the ability to scale this to a handle big volumes we will provide an implementation based on [AWS API Gateway](https://aws.amazon.com/api-gateway/)
+## Message Processing
 
+> Process messages received via the message consumption endpoint. Depending on what you wish to do, these messages can be processed in different ways.
+
+## Front end
+
+> Render the data from the output of the other two components. Like a list of message, graphs based on processed data or a map with real-time visualizations.
 
 # Ideas
 This section contains tools/processes that could be set up in a real environment:
