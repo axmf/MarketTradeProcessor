@@ -38,5 +38,9 @@ There are three components:
 # Ideas
 This section contains tools/processes that could be set up in a real environment:
 
+## General
 - [ ] Automated pipeline to deploy infra
 - [ ] Observability
+
+## API
+- [ ] Auth
