@@ -35,12 +35,13 @@ There are three components:
 
 > Render the data from the output of the other two components. Like a list of message, graphs based on processed data or a map with real-time visualizations.
 
-# Ideas
+# Ideas/TODOs
 This section contains tools/processes that could be set up in a real environment:
 
 ## General
 - [ ] Automated pipeline to deploy infra
 - [ ] Observability
+- [ ] Improve build 
 
 ## API
 - [ ] Auth
