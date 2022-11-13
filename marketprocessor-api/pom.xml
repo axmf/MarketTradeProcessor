@@ -12,7 +12,7 @@
 
     <groupId>com.marketprocessor</groupId>
     <artifactId>marketprocessor-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0</version>
     <name>marketprocessor</name>
     <description>Api to receive incoming trades</description>
     <properties>

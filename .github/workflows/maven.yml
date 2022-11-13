@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: Build and deploy app
 
 on:
   push:
@@ -28,13 +28,13 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Package App
-      run: mvn -B package --file pom.xml -DskipTests
+      run: mvn -B package --file pom.xml -DskipTests=true
     - name: stop running instances
       run: sudo pkill -9 -f marketprocessor || true
     - name: Execute API
-      run: java -jar /home/ubuntu/actions-runner/_work/MarketTradeProcessor/MarketTradeProcessor/marketprocessor-api/target/marketprocessor-api-0.0.1-SNAPSHOT.jar > logs.txt &
+      run: java -jar /home/ubuntu/actions-runner/_work/MarketTradeProcessor/MarketTradeProcessor/marketprocessor-api/target/marketprocessor-api-0.1.0.jar > logs.txt &
     - name: Execute Processor
-      run: java -jar /home/ubuntu/actions-runner/_work/MarketTradeProcessor/MarketTradeProcessor/marketprocessor-processor/target/marketprocessor-processor-0.0.1-SNAPSHOT.jar > logs.txt &
+      run: java -jar /home/ubuntu/actions-runner/_work/MarketTradeProcessor/MarketTradeProcessor/marketprocessor-processor/target/marketprocessor-processor-0.1.0.jar > logs.txt &
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     #- name: Update dependency graph
