@@ -27,12 +27,10 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Package App
-      run: mvn -B package --file pom.xml -DskipTests=true
     - name: stop running instances
       run: sudo pkill -9 -f marketprocessor || true
-    - name: wait
-      run: sleep 5000
+    - name: Package App
+      run: mvn -B package --file pom.xml -DskipTests=true
     - name: Execute API
       run: java -jar /home/ubuntu/actions-runner/_work/MarketTradeProcessor/MarketTradeProcessor/marketprocessor-api/target/marketprocessor-api-0.1.0.jar > /home/logs/api-logs.txt &
     - name: Execute Processor
