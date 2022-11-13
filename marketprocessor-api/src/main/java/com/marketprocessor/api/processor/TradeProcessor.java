@@ -20,7 +20,7 @@ public class TradeProcessor {
     public void processTrade(Trade trade) {
         //TODO add a DB
         trades.put(UUID.randomUUID(), trade);
-        kafkaTemplate.send("trades", trade.toString());
+        kafkaTemplate.send("trades", trade);
     }
 
     public HashMap<UUID, Trade> getTrades() {
