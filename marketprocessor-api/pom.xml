@@ -12,7 +12,7 @@
 
     <groupId>com.marketprocessor</groupId>
     <artifactId>marketprocessor-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0</version>
     <name>marketprocessor</name>
     <description>Api to receive incoming trades</description>
     <properties>
@@ -42,7 +42,12 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.22</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka-test</artifactId>
+            <version>2.9.2</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
