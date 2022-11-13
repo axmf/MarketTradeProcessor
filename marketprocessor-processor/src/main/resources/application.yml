@@ -3,7 +3,7 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: 100.26.109.183:9092
+          brokers: 172.31.86.56:9092
       function:
         definition: calculateNumberOfOperations
       bindings:
