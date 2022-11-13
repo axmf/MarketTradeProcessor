@@ -27,10 +27,14 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
+    - name: Package App
       run: mvn -B package --file pom.xml -DskipTests
-    - name: Execute jar
-      run: sudo kill -9 `sudo lsof -t -i:8080` & sudo java -jar /home/ubuntu/actions-runner/_work/MarketTradeProcessor/MarketTradeProcessor/marketprocessor/target/marketprocessor-0.0.1-SNAPSHOT.jar > logs.txt &
+    - name: stop running instances
+      run: sudo pkill -9 -f marketprocessor
+    - name: Execute API
+      run: java -jar /home/ubuntu/actions-runner/_work/MarketTradeProcessor/MarketTradeProcessor/marketprocessor-api/target/marketprocessor-api-0.0.1-SNAPSHOT.jar > logs.txt &
+    - name: Execute Processor
+      run: java -jar /home/ubuntu/actions-runner/_work/MarketTradeProcessor/MarketTradeProcessor/marketprocessor-processor/target/marketprocessor-processor-0.0.1-SNAPSHOT.jar > logs.txt &
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     #- name: Update dependency graph
