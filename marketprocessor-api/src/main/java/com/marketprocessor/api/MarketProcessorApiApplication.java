@@ -6,10 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @Slf4j
-public class MarketProcessorApplication {
+public class MarketProcessorApiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MarketProcessorApplication.class, args);
+        SpringApplication.run(MarketProcessorApiApplication.class, args);
     }
-
 }
