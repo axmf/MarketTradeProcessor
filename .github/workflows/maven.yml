@@ -30,7 +30,7 @@ jobs:
     - name: Package App
       run: mvn -B package --file pom.xml -DskipTests
     - name: stop running instances
-      run: sudo pkill -9 -f marketprocessor
+      run: sudo pkill -9 -f marketprocessor || true
     - name: Execute API
       run: java -jar /home/ubuntu/actions-runner/_work/MarketTradeProcessor/MarketTradeProcessor/marketprocessor-api/target/marketprocessor-api-0.0.1-SNAPSHOT.jar > logs.txt &
     - name: Execute Processor
