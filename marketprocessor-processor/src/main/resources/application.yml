@@ -1,0 +1,15 @@
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: 100.26.109.183:9092
+      function:
+        definition: calculateNumberOfOperations
+      bindings:
+        calculateNumberOfOperations-in-0:
+          destination: trades
+        calculateNumberOfOperations-out-0:
+          destination: numberOfOperations
+
+logging.file.path: /home/logs

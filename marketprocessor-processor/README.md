@@ -1,0 +1,1 @@
+This module illustrates some potential tranformation that could be applied to the input stream of trades to generate information.
