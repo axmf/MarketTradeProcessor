@@ -32,9 +32,9 @@ jobs:
     - name: stop running instances
       run: sudo pkill -9 -f marketprocessor || true
     - name: Execute API
-      run: java -jar /home/ubuntu/actions-runner/_work/MarketTradeProcessor/MarketTradeProcessor/marketprocessor-api/target/marketprocessor-api-0.1.0.jar > logs.txt &
+      run: java -jar /home/ubuntu/actions-runner/_work/MarketTradeProcessor/MarketTradeProcessor/marketprocessor-api/target/marketprocessor-api-0.1.0.jar > /home/logs/api-logs.txt &
     - name: Execute Processor
-      run: java -jar /home/ubuntu/actions-runner/_work/MarketTradeProcessor/MarketTradeProcessor/marketprocessor-processor/target/marketprocessor-processor-0.1.0.jar > logs.txt &
+      run: java -jar /home/ubuntu/actions-runner/_work/MarketTradeProcessor/MarketTradeProcessor/marketprocessor-processor/target/marketprocessor-processor-0.1.0.jar > /home/logs/processor-logs.txt &
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     #- name: Update dependency graph
