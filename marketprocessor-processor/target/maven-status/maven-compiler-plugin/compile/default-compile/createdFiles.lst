@@ -1,0 +1,4 @@
+com\marketprocessor\model\UserVolumeEvent.class
+com\marketprocessor\model\Trade$TradeBuilder.class
+com\marketprocessor\model\Trade.class
+com\marketprocessor\MarketProcessorApplication.class
