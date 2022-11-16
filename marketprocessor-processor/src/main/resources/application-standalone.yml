@@ -3,4 +3,4 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: 100.26.109.183:9092
+          brokers: docker.home:9092
