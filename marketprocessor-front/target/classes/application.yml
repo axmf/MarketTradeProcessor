@@ -1,11 +1,11 @@
+server.port: 8081
 spring.main.allow-circular-references: true
 spring:
   cloud:
     stream:
       kafka:
         binder:
-          brokers: docker.home:9092
-#          brokers: ip-172-31-86-56.ec2.internal:9092
+          brokers: ip-172-31-86-56.ec2.internal:9092
       function:
         definition: sendEventsToClient
       bindings:
@@ -14,6 +14,5 @@ spring:
 
 logging.file.path: /home/logs
 
-server.port: 8081
 
 
