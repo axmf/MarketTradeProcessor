@@ -2,6 +2,7 @@ package com.marketprocessor.fe;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.marketprocessor.fe.model.TradeVolumeMessage;
 import com.marketprocessor.fe.model.UserVolumeEvent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,10 +24,8 @@ import java.util.function.Consumer;
 @Slf4j
 public class EventsReaderConfig {
 
-    //    private final UserController userController;
     @Autowired(required = false)
     private SimpMessagingTemplate template;
-
 
     @Bean
     public ObjectMapper defaultMapper() {
@@ -38,12 +37,9 @@ public class EventsReaderConfig {
     @Bean
     public Consumer<UserVolumeEvent> sendEventsToClient() {
         return uve -> {
-            log.info(Instant.now() + ": " + uve);
-            greet(uve);
+            TradeVolumeMessage tvm = new TradeVolumeMessage(uve.getTimestamp().toString(), uve.getUserId(), uve.getCount());
+            this.template.convertAndSend("/topic/volume", tvm);
         };
     }
 
-    public void greet(UserVolumeEvent uve) {
-        this.template.convertAndSend("/topic/volume", uve);
-    }
 }

@@ -7,6 +7,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class TradeVolumeMessage {
 
-    String message;
+    String timestamp;
+    Long userId;
+    Long operationsCount;
 
 }
