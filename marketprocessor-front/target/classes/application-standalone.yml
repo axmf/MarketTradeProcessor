@@ -1,7 +1,6 @@
-server.port: 8081
 spring:
   cloud:
     stream:
       kafka:
         binder:
-          brokers: docker.home:9092
+          brokers: 192.168.1.47:9092
