@@ -1,0 +1,18 @@
+server.port: 8081
+spring.main.allow-circular-references: true
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: ip-172-31-86-56.ec2.internal:9092
+      function:
+        definition: sendEventsToClient
+      bindings:
+        sendEventsToClient-in-0:
+          destination: numberOfOperations
+
+logging.file.path: /home/logs
+
+
+

@@ -1,0 +1,8 @@
+com\marketprocessor\fe\model\TradeVolumeMessage.class
+com\marketprocessor\fe\controller\UserController.class
+com\marketprocessor\fe\EventsReaderConfig.class
+com\marketprocessor\fe\model\UserVolumeEvent$UserVolumeEventBuilder.class
+com\marketprocessor\fe\model\UserMessage.class
+com\marketprocessor\fe\MarketProcessorFrontEnd.class
+com\marketprocessor\fe\config\WebSocketConfig.class
+com\marketprocessor\fe\model\UserVolumeEvent.class

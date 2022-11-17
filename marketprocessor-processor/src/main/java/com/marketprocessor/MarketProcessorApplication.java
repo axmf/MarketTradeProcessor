@@ -21,23 +21,4 @@ public class MarketProcessorApplication {
         SpringApplication.run(MarketProcessorApplication.class, args);
     }
 
-    @Bean
-    public ObjectMapper defaultMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        return objectMapper;
-    }
-
-    @Bean
-    public Function<Flux<Trade>, Flux<UserVolumeEvent>> calculateNumberOfOperations() {
-        return data -> data.window(Duration.ofSeconds(3))
-                .flatMap(window -> window.groupBy(Trade::getUserId)
-                        .flatMap(this::calculateOperations));
-    }
-
-    private Mono<UserVolumeEvent> calculateOperations(GroupedFlux<Long, Trade> group) {
-        return group
-                .count()
-                .map(c -> new UserVolumeEvent(group.key(), c));
-    }
 }

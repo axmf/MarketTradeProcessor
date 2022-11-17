@@ -1,4 +1,4 @@
-package com.marketprocessor.model;
+package com.marketprocessor.fe.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,9 +8,8 @@ import lombok.extern.jackson.Jacksonized;
 import java.time.Instant;
 
 @Data
-@Builder
 @Jacksonized
-@AllArgsConstructor
+@Builder
 public class UserVolumeEvent {
 
     Instant timestamp;

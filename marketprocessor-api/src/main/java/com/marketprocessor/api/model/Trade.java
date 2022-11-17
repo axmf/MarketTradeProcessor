@@ -1,10 +1,12 @@
 package com.marketprocessor.api.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.Instant;
 
 @Data
+@Builder
 public class Trade {
 
     Long userId;
