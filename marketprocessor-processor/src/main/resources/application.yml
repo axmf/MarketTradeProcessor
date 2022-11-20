@@ -1,4 +1,8 @@
 spring:
+  kafka:
+    consumer:
+      properties:
+        max.poll.records: 1
   cloud:
     stream:
       kafka:

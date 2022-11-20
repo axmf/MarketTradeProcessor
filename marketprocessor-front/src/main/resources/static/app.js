@@ -20,7 +20,11 @@ function connect() {
         stompClient.subscribe('/topic/volume', function (uve) {
             updateVolume(uve.body);
         });
+        stompClient.subscribe('/topic/trades', function (trades) {
+            addTrades(trades.body);
+        });
     });
+    socket.onclose = function(){setConnected(false)};
 }
 
 function disconnect() {
@@ -32,7 +36,22 @@ function disconnect() {
 }
 
 function updateVolume(message) {
-    $("#volume").html("<tr><td>" + message + "</td></tr>");
+    $("#currentVolume").html("<tr><td>" + message.timestamp + ":" + message.operationsCount+ "</td></tr>");
+}
+function addTrades(trade) {
+    jsonTrade = JSON.parse(trade)
+    $("#trades").append("<tr>" +
+    "<td>" + new Date(jsonTrade.timePlaced * 1000) + "</td>" +
+    "<td>" + jsonTrade.currencyFrom + "</td>" +
+    "<td>" + jsonTrade.currencyTo + "</td>" +
+    "<td>" + jsonTrade.amountSell + "</td>" +
+    "<td>" + jsonTrade.amountBuy + "</td>" +
+    "<td>" + jsonTrade.rate + "</td>" +
+    "<td>" + jsonTrade.originatingCountry + "</td>" +
+    "</tr>");
+}
+function clearTrades(){
+ $("#trades").html("");
 }
 
 $(function () {
@@ -41,6 +60,7 @@ $(function () {
     });
     $( "#connect" ).click(function() { connect(); });
     $( "#disconnect" ).click(function() { disconnect(); });
+    $( "#clear" ).click(function() { clearTrades(); });
     connect();
 });
 

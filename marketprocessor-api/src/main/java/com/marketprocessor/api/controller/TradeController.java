@@ -18,7 +18,7 @@ public class TradeController {
 
     @PostMapping(value = "/trade")
     public void newTrade(@RequestBody Trade trade) {
-        log.debug("Trade received: {}", trade);
+        log.info("Trade received: {}", trade);
         tradeProcessor.processTrade(trade);
     }
 
