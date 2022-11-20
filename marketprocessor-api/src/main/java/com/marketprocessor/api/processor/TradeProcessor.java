@@ -13,18 +13,10 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class TradeProcessor {
 
-    private final Map<UUID, Trade> trades = new HashMap<>();
-
     private final KafkaTemplate<Object, Object> kafkaTemplate;
 
     public void processTrade(Trade trade) {
-        //TODO add a DB
-        trades.put(UUID.randomUUID(), trade);
-        kafkaTemplate.send("trades", trade);
-    }
-
-    public HashMap<UUID, Trade> getTrades() {
-        return new HashMap<>(trades);
+        kafkaTemplate.send("trades", trade.getUserId(), trade);
     }
 
 }

@@ -1,65 +1,69 @@
 package com.marketprocessor.api;
 
+import com.marketprocessor.api.controller.TradeController;
 import com.marketprocessor.api.model.Trade;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.common.TopicPartition;
-import org.apache.kafka.common.serialization.ByteArrayDeserializer;
-import org.apache.kafka.common.serialization.ByteArraySerializer;
+import org.apache.kafka.common.serialization.LongDeserializer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.springframework.kafka.core.DefaultKafkaProducerFactory;
-import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.kafka.test.utils.KafkaTestUtils;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.util.Collections;
 import java.util.Map;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@EmbeddedKafka(topics = {MarketProcessorApiApplicationTests.TRADES, MarketProcessorApiApplicationTests.NUMBER_OF_OPERATIONS},
-        partitions = 1,
-        bootstrapServersProperty = "spring.kafka.bootstrap-servers")
+@EmbeddedKafka(topics = {MarketProcessorApiApplicationTests.TRADES}, partitions = 1, bootstrapServersProperty = "spring.kafka.bootstrap-servers")
 class MarketProcessorApiApplicationTests {
 
 
+    @Autowired
+    TradeController tradeController;
     public static final String TRADES = "trades";
-    public static final String NUMBER_OF_OPERATIONS = "numberOfOperations";
 
     @Test
     void testSendReceive(@Autowired EmbeddedKafkaBroker embeddedKafka) {
-        Map<String, Object> senderProps = KafkaTestUtils.producerProps(embeddedKafka);
-        senderProps.put("key.serializer", ByteArraySerializer.class);
-        senderProps.put("value.serializer", ByteArraySerializer.class);
-        DefaultKafkaProducerFactory<UUID, Trade> pf = new DefaultKafkaProducerFactory<>(senderProps);
-        KafkaTemplate<UUID, Trade> template = new KafkaTemplate<>(pf, true);
-        template.setDefaultTopic(TRADES);
-
-        Trade t = Trade.builder().userId(123L).build();
-
-        template.sendDefault(UUID.randomUUID(), t);
+        Trade expectedTrade = Trade.builder().userId(123L)
+                .amountBuy(100L)
+                .amountSell(200L)
+                .currencyFrom("EUR")
+                .rate((float) 9.23)
+                .currencyTo("GBP")
+                .originatingCountry("ES")
+                .timePlaced(Instant.now())
+                .build();
+        tradeController.newTrade(expectedTrade);
 
         Map<String, Object> consumerProps = KafkaTestUtils.consumerProps("groupName", "false", embeddedKafka);
         consumerProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        consumerProps.put("key.deserializer", ByteArrayDeserializer.class);
-        consumerProps.put("value.deserializer", ByteArrayDeserializer.class);
-        DefaultKafkaConsumerFactory<byte[], byte[]> cf = new DefaultKafkaConsumerFactory<>(consumerProps);
 
-        Consumer<byte[], byte[]> consumer = cf.createConsumer();
-        consumer.assign(Collections.singleton(new TopicPartition(NUMBER_OF_OPERATIONS, 0)));
-        ConsumerRecords<byte[], byte[]> records = consumer.poll(Duration.ofSeconds(10));
+        JsonDeserializer<Trade> valueDeserializer = new JsonDeserializer<>(Trade.class);
+        valueDeserializer.setRemoveTypeHeaders(false);
+        valueDeserializer.addTrustedPackages("*");
+        valueDeserializer.setUseTypeMapperForKey(true);
+        DefaultKafkaConsumerFactory<Long, Trade> cf = new DefaultKafkaConsumerFactory<>(consumerProps, new LongDeserializer(), valueDeserializer);
+
+        Consumer<Long, Trade> consumer = cf.createConsumer();
+        consumer.assign(Collections.singleton(new TopicPartition(TRADES, 0)));
+        ConsumerRecords<Long, Trade> records = consumer.poll(Duration.ofSeconds(10));
         consumer.commitSync();
 
         assertThat(records.count()).isEqualTo(1);
-        assertThat(new String(records.iterator().next().value())).isEqualTo("FOO");
+        ConsumerRecord<Long, Trade> actualTrade = records.iterator().next();
+        assertThat(actualTrade.key()).isEqualTo(expectedTrade.getUserId());
+        assertThat(actualTrade.value()).isEqualTo(expectedTrade);
     }
 
 }

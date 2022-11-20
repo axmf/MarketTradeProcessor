@@ -4,4 +4,5 @@ spring:
     bootstrap-servers: 172.31.86.56:9092
     producer:
       properties.spring.json.add.type.headers: false
+      key-serializer: org.apache.kafka.common.serialization.LongSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
