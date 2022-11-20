@@ -11,9 +11,11 @@
 </head>
 <body>
 <noscript><h2 style="color: #ff0000">Is Javascript enabled?</h2></noscript>
-<div id="main-content" class="container">
+<div id="main-content" class="container-fluid">
+
+
     <div class="row">
-        <div class="col-md-9">
+        <div class="col border">
             <form class="form-inline">
                 <div class="form-group">
                     <label for="connect">WebSocket connection:</label>
@@ -26,30 +28,38 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12" id="currentVolume">
-        </div>
+        <div class="col-1">
+            <div class="col" id="currentVolumeCol">
+                Amount of operations:
+                <div class="col" id="currentVolume">
 
+                </div>
+            </div>
+
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <table id="tradesTable" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Sold</th>
+                            <th>Bought</th>
+                            <th>Rate</th>
+                            <th>Originating Country</th>
+                        </tr>
+                        </thead>
+                        <tbody id="trades">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <table id="tradesTable" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Time</th>
-                    <th>From</th>
-                    <th>To</th>
-                    <th>Sold</th>
-                    <th>Bought</th>
-                    <th>Rate</th>
-                    <th>Originating Country</th>
-                </tr>
-                </thead>
-                <tbody id="trades">
-                </tbody>
-            </table>
-        </div>
-    </div>
 </div>
 </body>
 </html>

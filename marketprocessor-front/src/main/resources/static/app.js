@@ -41,7 +41,7 @@ function updateVolume(message) {
 function addTrades(trade) {
     jsonTrade = JSON.parse(trade)
     $("#trades").append("<tr>" +
-    "<td>" + jsonTrade.timePlaced + "</td>" +
+    "<td>" + new Date(jsonTrade.timePlaced * 1000) + "</td>" +
     "<td>" + jsonTrade.currencyFrom + "</td>" +
     "<td>" + jsonTrade.currencyTo + "</td>" +
     "<td>" + jsonTrade.amountSell + "</td>" +
