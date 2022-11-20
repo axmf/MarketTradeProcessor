@@ -36,7 +36,8 @@ function disconnect() {
 }
 
 function updateVolume(message) {
-    $("#currentVolume").html("<tr><td>" + message.timestamp + ":" + message.operationsCount+ "</td></tr>");
+    jsonMessage = JSON.parse(message)
+    $("#currentVolume").html("<tr><td>" + jsonMessage.timestamp + ":" + jsonMessage.operationsCount+ "</td></tr>");
 }
 function addTrades(trade) {
     jsonTrade = JSON.parse(trade)

@@ -13,7 +13,7 @@ spring:
       function:
         definition: sendVolumeEventsToClient;sendTradeEventsToClient
       bindings:
-        sendEventsToClient-in-0:
+        sendVolumeEventsToClient-in-0:
           destination: numberOfOperations
         sendTradeEventsToClient-in-0:
           destination: trades

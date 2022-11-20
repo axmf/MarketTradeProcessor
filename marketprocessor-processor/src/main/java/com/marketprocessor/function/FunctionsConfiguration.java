@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.Instant;
-import java.util.UUID;
 import java.util.function.Function;
 
 @Configuration
@@ -26,7 +25,7 @@ public class FunctionsConfiguration {
     }
 
     @Bean
-    public Function<KStream<UUID, Trade>, KStream<Long, UserVolumeEvent>> calculateNumberOfOperations() {
+    public Function<KStream<Long, Trade>, KStream<Long, UserVolumeEvent>> calculateNumberOfOperations() {
         return input -> input.map((k, v) -> new KeyValue<>(v.getUserId(), v.getAmountBuy()))
                 .groupByKey(Grouped.with(Serdes.Long(), Serdes.Long()))
                 .count()
