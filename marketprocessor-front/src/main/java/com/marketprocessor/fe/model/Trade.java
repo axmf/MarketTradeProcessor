@@ -1,5 +1,6 @@
-package com.marketprocessor.api.model;
+package com.marketprocessor.fe.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,10 +10,11 @@ import lombok.extern.jackson.Jacksonized;
 import java.time.Instant;
 
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @Jacksonized
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Trade {
 
     Long userId;
