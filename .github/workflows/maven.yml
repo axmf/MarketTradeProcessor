@@ -36,4 +36,4 @@ jobs:
     - name: Execute Processor
       run: sudo java -jar /home/ubuntu/actions-runner/_work/MarketTradeProcessor/MarketTradeProcessor/marketprocessor-processor/target/marketprocessor-processor-0.1.0.jar > /home/logs/processor-logs.txt &
     - name: Execute Processor
-      run: sudo java -jar /home/ubuntu/actions-runner/_work/MarketTradeProcessor/MarketTradeProcessor/marketprocessor-front/target/marketprocessor-front-0.1.0.jar > /home/logs/processor-logs.txt &
+      run: sudo java -jar /home/ubuntu/actions-runner/_work/MarketTradeProcessor/MarketTradeProcessor/marketprocessor-front/target/marketprocessor-front-0.1.0.jar > /home/logs/front-logs.txt &
